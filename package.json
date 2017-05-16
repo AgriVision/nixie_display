@@ -1,0 +1,13 @@
+{
+  "name": "nixie_display",
+  "description": "Intel® Edison Nixie Display Node.js Software",
+  "version": "0.0.1",
+  "main": "main.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "license": "BSD-3-Clause",
+  "private": true,
+  "dependencies": {
+  }
+}
