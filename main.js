@@ -18,9 +18,25 @@ var Edison = require("edison-io");
 var board = new five.Board({
     io: new Edison()
 });
-var display_function = 0;
-var MAXFUNCTION = 1; // largest function number
+
+// read settings from settings.json file
+// rename settings_template.json and fill with proper values
+var fs = require("fs");
+console.log(__dirname);
+var settings = fs.readFileSync(__dirname + "/settings.json");
+var jsonSettings = JSON.parse(settings);
+
+var weather = require('openweather-apis');
+weather.setLang(jsonSettings.Lang);
+weather.setCity(jsonSettings.City);
+weather.setUnits(jsonSettings.Units);
+weather.setAPPID(jsonSettings.APPID);
+
+// Globals
+var display_function = jsonSettings.startupDisplay;
+var MAXFUNCTION = 5; // largest function number
 var switch_function = false;
+var JSON_Weather;
 
 board.on("ready", function () {
 
@@ -100,18 +116,29 @@ board.on("ready", function () {
         nixie_disp(year, extender3);
     }
 
-    function showDisplayFunction(num) {
-        nixie_disp(num, extender1);
-        nixie_disp(0, extender2);
-        nixie_disp(0, extender3);
+    function showNumber(number) {
+        if (JSON_Weather != null) {
+            var n1n2 = number % 10000
+            var n1 = n1n2 % 100;
+            var n2 = (n1n2 - n1) / 100;
+            var n3 = (number - n1n2) / 10000
+            nixie_disp(n1, extender1);
+            nixie_disp(n2, extender2);
+            nixie_disp(n3, extender3);
+        } else {
+            nixie_disp(0, extender1);
+            nixie_disp(0, extender2);
+            nixie_disp(0, extender3);
+        }
     }
 
+    // button handling
     button.on("hold", function () {
         display_function += 1;
         if (display_function > MAXFUNCTION) {
             display_function = 0;
         }
-        showDisplayFunction(display_function);
+        showNumber(display_function);
         switch_function = true;
     });
 
@@ -125,24 +152,62 @@ board.on("ready", function () {
         }, 1000);
     });
 
-    function showAll() {
-        setInterval(function () {
+    // get all the weather info as JSON file returned from openweathermap at an interval of 60 seconds
+    function getWeather() {
+        weather.getSmartJSON(function (err, JSON) {
+            JSON_Weather = JSON;
+            console.log(JSON_Weather);
+        });
+    };
 
-            if (switch_function) {
-                showDisplayFunction(display_function);
-            } else {
-                switch (display_function) {
-                    case 0:
-                        showTime();
-                        break;
-                    case 1:
-                        showDate();
-                        break;
-                }
+    getWeather();
+    setInterval(getWeather, 60000); // get new weather data each minute
+
+    // main loop
+    function showAll() {
+        if (switch_function) {
+            showNumber(display_function);
+        } else {
+            switch (display_function) {
+                case 0:
+                    showTime();
+                    break;
+                case 1:
+                    showDate();
+                    break;
+                case 2:
+                    if (JSON_Weather != null) {
+                        showNumber(Math.round(JSON_Weather.temp));
+                    } else {
+                        showNumber(0);
+                    }
+                    break;
+                case 3:
+                    if (JSON_Weather != null) {
+                        showNumber(JSON_Weather.humidity);
+                    } else {
+                        showNumber(0);
+                    }
+                    break;
+                case 4:
+                    if (JSON_Weather != null) {
+                        showNumber(JSON_Weather.pressure);
+                    } else {
+                        showNumber(0);
+                    }
+                    break;
+                case 5:
+                    if (JSON_Weather != null) {
+                        showNumber(JSON_Weather.rain);
+                    } else {
+                        showNumber(0);
+                    }
+                    break;
             }
-        }, 500);
+        }
     }
 
     showAll();
+    setInterval(showAll, 500);
 
 });

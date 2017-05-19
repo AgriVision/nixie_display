@@ -27,3 +27,6 @@ Thumbs.db
 .hg
 .svn
 .CVS
+ 
+# settings file
+settings.json

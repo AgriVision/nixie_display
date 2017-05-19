@@ -11,8 +11,8 @@
   "iot-tab": {
     "fileStatus": {
       ".gitignore": {
-        "previousModTime": 1493979138000,
-        "modified": 1493979138000,
+        "previousModTime": 1495225081000,
+        "modified": 1495225081000,
         "seen": true,
         "name": ".gitignore"
       },
@@ -23,8 +23,8 @@
         "name": "README.md"
       },
       "main.js": {
-        "previousModTime": 1494956154000,
-        "modified": 1494956154000,
+        "previousModTime": 1495228274000,
+        "modified": 1495228274000,
         "seen": true,
         "name": "main.js"
       },
@@ -35,8 +35,8 @@
         "name": "nixie_display.xdk"
       },
       "nixie_display.xdke": {
-        "previousModTime": 1494956068000,
-        "modified": 1494956068000,
+        "previousModTime": 1495225727000,
+        "modified": 1495225727000,
         "seen": true,
         "name": "nixie_display.xdke"
       },
@@ -51,11 +51,29 @@
         "modified": 1493979139000,
         "seen": true,
         "name": "xdk/project-info.json"
+      },
+      "LICENSE": {
+        "previousModTime": 1494959871000,
+        "modified": 1494959871000,
+        "seen": true,
+        "name": "LICENSE"
+      },
+      "settings.json": {
+        "previousModTime": 1495224582000,
+        "modified": 1495224582000,
+        "seen": true,
+        "name": "settings.json"
+      },
+      "settings_template.json": {
+        "previousModTime": 1495224703000,
+        "modified": 1495224703000,
+        "seen": true,
+        "name": "settings_template.json"
       }
     },
     "boardFileStatus": {
       "main.js": {
-        "previousModTime": 1494956154882
+        "previousModTime": 1495228280824
       }
     }
   }
