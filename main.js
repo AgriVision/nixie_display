@@ -117,19 +117,13 @@ board.on("ready", function () {
     }
 
     function showNumber(number) {
-        if (JSON_Weather != null) {
-            var n1n2 = number % 10000
-            var n1 = n1n2 % 100;
-            var n2 = (n1n2 - n1) / 100;
-            var n3 = (number - n1n2) / 10000
-            nixie_disp(n1, extender1);
-            nixie_disp(n2, extender2);
-            nixie_disp(n3, extender3);
-        } else {
-            nixie_disp(0, extender1);
-            nixie_disp(0, extender2);
-            nixie_disp(0, extender3);
-        }
+        var n1n2 = number % 10000
+        var n1 = n1n2 % 100;
+        var n2 = (n1n2 - n1) / 100;
+        var n3 = (number - n1n2) / 10000
+        nixie_disp(n1, extender1);
+        nixie_disp(n2, extender2);
+        nixie_disp(n3, extender3);
     }
 
     // button handling
