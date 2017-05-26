@@ -34,9 +34,16 @@ weather.setAPPID(jsonSettings.APPID);
 
 // Globals
 var display_function = jsonSettings.startupDisplay;
-var MAXFUNCTION = 5; // largest function number
+var MAXFUNCTION = 6; // largest function number
 var switch_function = false;
 var JSON_Weather;
+var blog_counts = 0;
+
+// Web scrapping
+var request = require("request"),
+    cheerio = require("cheerio"),
+    url = "https://www.element14.com/community/community/design-challenges/upcycleit/content?filterID=contentstatus%5Bpublished%5D~language~language%5Bcpl%5D&filterID=contentstatus%5Bpublished%5D~tag%5Bupcycled_nixie%5D&sortKey=contentstatus%5Bpublished%5D~creationDateDesc&sortOrder=0";
+
 
 board.on("ready", function () {
 
@@ -197,11 +204,32 @@ board.on("ready", function () {
                         showNumber(0);
                     }
                     break;
+                case 6:
+                    showNumber(blog_counts);
+                    break;
             }
         }
     }
 
     showAll();
     setInterval(showAll, 500);
+
+    function getBlogCounts() {
+        request(url, function (error, response, body) {
+            if (!error) {
+                var $ = cheerio.load(body);
+                var views = $('td.j-td-views').children().first().text();
+                var likes = $('td.j-td-likes').children().first().text().split(' ')[1];
+                console.log('Views:', views, 'Likes:', likes);
+                blog_counts = views * 100 + likes;
+            } else {
+                console.log("We’ve encountered an error: " + error);
+            }
+        });
+    }
+
+    getBlogCounts();
+    setInterval(getBlogCounts, 600000); // interval of 10 minutes
+
 
 });
