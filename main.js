@@ -42,7 +42,7 @@ var blog_counts = 0;
 // Web scrapping
 var request = require("request"),
     cheerio = require("cheerio"),
-    url = "https://www.element14.com/community/community/design-challenges/upcycleit/content?filterID=contentstatus%5Bpublished%5D~language~language%5Bcpl%5D&filterID=contentstatus%5Bpublished%5D~tag%5Bupcycled_nixie%5D&sortKey=contentstatus%5Bpublished%5D~creationDateDesc&sortOrder=0";
+    url = jsonSettings.BlogURL;
 
 
 board.on("ready", function () {
