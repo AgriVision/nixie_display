@@ -221,7 +221,7 @@ board.on("ready", function () {
                 var views = $('td.j-td-views').children().first().text();
                 var likes = $('td.j-td-likes').children().first().text().split(' ')[1];
                 console.log('Views:', views, 'Likes:', likes);
-                blog_counts = views * 100 + likes;
+                blog_counts = views * 1000 + likes * 1;
             } else {
                 console.log("We’ve encountered an error: " + error);
             }
