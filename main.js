@@ -18,6 +18,7 @@ var Edison = require("edison-io");
 var board = new five.Board({
     io: new Edison()
 });
+var cmd = require('node-cmd');
 
 // read settings from settings.json file
 // rename settings_template.json and fill with proper values
@@ -133,6 +134,32 @@ board.on("ready", function () {
         nixie_disp(n3, extender3);
     }
 
+    function speakFunction() {
+        switch (display_function) {
+            case 0:
+                cmd.run('gst-launch-1.0 filesrc location= /home/root/time.wav ! wavparse ! pulsesink');
+                break;
+            case 1:
+                cmd.run('gst-launch-1.0 filesrc location= /home/root/date.wav ! wavparse ! pulsesink');
+                break;
+            case 2:
+                cmd.run('gst-launch-1.0 filesrc location= /home/root/temperature.wav ! wavparse ! pulsesink');
+                break;
+            case 3:
+                cmd.run('gst-launch-1.0 filesrc location= /home/root/humidity.wav ! wavparse ! pulsesink');
+                break;
+            case 4:
+                cmd.run('gst-launch-1.0 filesrc location= /home/root/pressure.wav ! wavparse ! pulsesink');
+                break;
+            case 5:
+                cmd.run('gst-launch-1.0 filesrc location= /home/root/rain.wav ! wavparse ! pulsesink');
+                break;
+            case 6:
+                cmd.run('gst-launch-1.0 filesrc location= /home/root/viewsandlikes.wav ! wavparse ! pulsesink');
+                break;
+        }
+    }
+
     // button handling
     button.on("hold", function () {
         display_function += 1;
@@ -148,6 +175,7 @@ board.on("ready", function () {
     });
 
     button.on("release", function () {
+        speakFunction();
         setTimeout(function () {
             switch_function = false;
         }, 1000);
@@ -230,6 +258,5 @@ board.on("ready", function () {
 
     getBlogCounts();
     setInterval(getBlogCounts, 600000); // interval of 10 minutes
-
 
 });
