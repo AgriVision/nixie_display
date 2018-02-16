@@ -23,8 +23,8 @@
         "name": "README.md"
       },
       "main.js": {
-        "previousModTime": 1495898801000,
-        "modified": 1495898801000,
+        "previousModTime": 1518814157065,
+        "modified": 1518814157065,
         "seen": true,
         "name": "main.js"
       },
@@ -35,8 +35,8 @@
         "name": "nixie_display.xdk"
       },
       "nixie_display.xdke": {
-        "previousModTime": 1495898734000,
-        "modified": 1495898734000,
+        "previousModTime": 1518814404432,
+        "modified": 1518814404432,
         "seen": true,
         "name": "nixie_display.xdke"
       },
@@ -59,8 +59,8 @@
         "name": "LICENSE"
       },
       "settings.json": {
-        "previousModTime": 1495805156000,
-        "modified": 1495805156000,
+        "previousModTime": 1518814471897,
+        "modified": 1518814471897,
         "seen": true,
         "name": "settings.json"
       },
@@ -72,8 +72,8 @@
       }
     },
     "boardFileStatus": {
-      "main.js": {
-        "previousModTime": 1495898801724
+      "settings.json": {
+        "previousModTime": 1518814472135
       }
     }
   }

@@ -3,6 +3,7 @@
  *
  * Display time, date and weather information on nixie tubes connected to the Intel Edison.
  *
+ *
  * <https://www.element14.com/community/community/design-challenges/upcycleit/blog/2017/03/22/upcycle-it-with-edison-upcycled-nixie-display-1-introduction>
  */
 
@@ -206,7 +207,12 @@ board.on("ready", function () {
                     break;
                 case 2:
                     if (JSON_Weather != null) {
-                        showNumber(Math.round(JSON_Weather.temp));
+                        if (JSON_Weather.temp<0) { // display negative temps on right side of display
+                            var negtemp = 10000 * -Math.round(JSON_Weather.temp);
+                            showNumber(negtemp);
+                        } else {
+                            showNumber(Math.round(JSON_Weather.temp));
+                        }
                     } else {
                         showNumber(0);
                     }
