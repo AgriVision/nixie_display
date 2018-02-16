@@ -207,7 +207,7 @@ board.on("ready", function () {
                     break;
                 case 2:
                     if (JSON_Weather != null) {
-                        if (JSON_Weather.temp<0) { // display negative temps on right side of display
+                        if (JSON_Weather.temp<0) { // display negative temps on left side of display
                             var negtemp = 10000 * -Math.round(JSON_Weather.temp);
                             showNumber(negtemp);
                         } else {
